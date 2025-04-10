@@ -38,7 +38,7 @@ h2 {
     padding: 5px;
 }
 
-#region_name {
+/* #region_name {
     font-size: 40px;
     position: absolute;
     top: 100px;
@@ -46,9 +46,10 @@ h2 {
     z-index: 4;
     background-color: rgb(174, 56, 225);
     padding: 5px;
-}
+} */
 
-#lng {
+
+/* #lng {
     font-size: 20px;
     position: absolute;
     top: 800px;
@@ -66,6 +67,50 @@ h2 {
     z-index: 4;
     background-color: rgb(129, 161, 167);
     padding: 5px;
+} */
+
+#region_name {
+  font-size: 24px;
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  z-index: 4;
+  background-color: rgba(255, 255, 255, 0.8);
+  padding: 10px 15px;
+  border-radius: 5px;
+  color: #333;
+  font-family: sans-serif;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  width: auto; /*  Разрешить автоматическую ширину контента */
+  text-align: right; /* Выровнять текст по правому краю */
+}
+
+#lat {
+  font-size: 10px;
+  position: fixed; /* Фиксированное позиционирование относительно окна браузера */
+  bottom: 40px;   /* Отступ от нижнего края */
+  right: 10px;    /* Отступ от правого края */
+  z-index: 4;      /* Убедитесь, что элемент находится над другими */
+  background-color: rgba(255, 255, 255, 0.8); /* Белый полупрозрачный фон */
+  padding: 5px 8px;  /* Отступы внутри элемента */
+  border-radius: 3px; /* Скругление углов */
+  color: #333;    /* Темно-серый цвет текста */
+  font-family: sans-serif; /* Нейтральный шрифт */
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); /* Небольшая тень */
+}
+
+#lng {
+  font-size: 10px;
+  position: fixed; /* Фиксированное позиционирование относительно окна браузера */
+  bottom: 70px;   /* Отступ от нижнего края */
+  right: 10px;    /* Отступ от правого края, рядом с широтой */
+  z-index: 4;      /* Убедитесь, что элемент находится над другими */
+  background-color: rgba(255, 255, 255, 0.8); /* Белый полупрозрачный фон */
+  padding: 5px 8px;  /* Отступы внутри элемента */
+  border-radius: 3px; /* Скругление углов */
+  color: #333;    /* Темно-серый цвет текста */
+  font-family: sans-serif; /* Нейтральный шрифт */
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); /* Небольшая тень */
 }
 
 /* .button {

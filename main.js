@@ -9,20 +9,22 @@ const map = new maplibregl.Map({
   zoom: 5, // starting zoom
 })
 
+// функция для присоединения гугл-таблички
+
 function mergeData(regionsGeoJSON, csvData) {
   regionsGeoJSON.features.forEach(feature => {
-    const id = String(feature.properties.region_code);
+    const id = String(feature.properties.region_cod);
     // console.log(`Обрабатываем GeoJSON feature с region_code: ${id}`); 
 
     let csvRecord = null;
 
     for (let i = 0; i < csvData.length; i++) {
-      const csvRegionCode = csvData[i].region_code;
+      const csvRegionCode = csvData[i].region_cod;
       // console.log(`Сравниваем с CSV region_code: ${csvRegionCode}`); 
       if (csvRegionCode === id) {
         csvRecord = csvData[i];
         // console.log(`Найдено соответствие для region_code: ${id}`); 
-        break; // Нашли соответствие, выходим из цикла
+        break; // после того, как нашли соответствие, выходим из цикла
       }
     }
 
@@ -84,15 +86,9 @@ map.on('load', () => {
     }
   })
 
-  // map.addSource('regions', {
-  //   type: 'geojson',
-  //   data: './data/regions_ispr.geojson',
-  //   promoteId: 'fid'
-  // })
-
   let regionsGeoJSON;
 
-  fetch('./data/regions_ispr.geojson')
+  fetch('./data/regions_ispr2.geojson')
     .then(response => response.json())
     .then(data => {
       regionsGeoJSON = data;
@@ -110,7 +106,7 @@ map.on('load', () => {
           map.addSource('regions', {
             type: 'geojson',
             data: regionsGeoJSON,
-            promoteId: 'fid'
+            promoteId: 'region_cod'
           });
           map.addLayer({
             id: 'regionslayer',
@@ -122,7 +118,7 @@ map.on('load', () => {
                 'case',
                 ['boolean', ['feature-state', 'mew'], false],
                 'purple',
-                'green'
+                'white'
               ],
               'fill-opacity': [
                 'case', //ключевое слово в выражении MapLibre GL, которое позволяет задать условные правила
@@ -134,6 +130,8 @@ map.on('load', () => {
           });
 
           let hoveredRegionsId = null;
+
+          // изменение прозрачности (hover effect)
 
           map.on('mousemove', 'regionslayer', (e) => {
             if (e.features.length > 0) {
@@ -198,7 +196,7 @@ map.on('load', () => {
 
           map.on('mousemove', ['regionslayer'], (i) => {
             console.log(i.features)
-            document.getElementById('region_name').innerHTML = i.features[0].properties.region_name
+            document.getElementById('region_name').innerHTML = i.features[0].properties.NL_NAME_1
           })
 
           map.on('mousemove', (event) => {
@@ -210,17 +208,153 @@ map.on('load', () => {
             const lat = event.lngLat.lat
             document.getElementById('lat').innerHTML = `Широта: ${lat}`
           })
+          
+          const regionAudioMap = {
+            "Алтайский край": "./Audio/Алтайский край.mp3",
+            "Амурская область": "./Audio/Амурская область.mp3",
+            "Архангельская область": "./Audio/Архангельская область.mp3",
+            "Астраханская область": "./Audio/Астраханская область.mp3",
+            "Белгородская область": "./Audio/Белгородская область.mp3",
+            "Брянская область": "./Audio/Брянская область.mp3",
+            "Владимирская область": "./Audio/Владимирская область.mp3",
+            "Волгоградская область": "./Audio/Волгоградская область.mp3",
+            "Вологодская область": "./Audio/Вологодская область.mp3",
+            "Воронежская область": "./Audio/Воронежская область.mp3",
+            "Донецкая Народная Республика": "./Audio/Донецкая Народная Республика.mp3",
+            "Еврейская автономная область": "./Audio/Еврейская автономная область.mp3",
+            "Забайкальский край": "./Audio/Забайкальский край.mp3",
+            "Запорожская область": "./Audio/Запорожская область.mp3",
+            "Ивановская область": "./Audio/Ивановская область.mp3",
+            "Иркутская область": "./Audio/Иркутская область.mp3",
+            "Кабардино-Балкарская Республика": "./Audio/Кабардино-Балкарская Республика.mp3",
+            "Калининградская область": "./Audio/Калининградская область.mp3",
+            "Калужская область": "./Audio/Калужская область.mp3",
+            "Камчатский край": "./Audio/Камчатский край.mp3",
+            "Карачаево-Черкесская Республика": "./Audio/Карачаево-Черкесская Республика.mp3",
+            "Кемеровская область": "./Audio/Кемеровская область.mp3",
+            "Кировская область": "./Audio/Кировская область.mp3",
+            "Костромская область": "./Audio/Костромская область.mp3",
+            "Республика Коми": "./Audio/Республика Коми.mp3",
+            "Краснодарский край": "./Audio/Краснодарский край.mp3",
+            "Красноярский край": "./Audio/Красноярский край.mp3",
+            "Курганская область": "./Audio/Курганская область.mp3",
+            "Курская область": "./Audio/Курская область.mp3",
+            "Ленинградская область": "./Audio/Ленинградская область.mp3",
+            "Липецкая область": "./Audio/Липецкая область.mp3",
+            "Луганская Народная Республика": "./Audio/Луганская Народная Республика.mp3",
+            "Магаданская область": "./Audio/Магаданская область.mp3",
+            "Московская область": "./Audio/Московская область.mp3",
+            "Мурманская область": "./Audio/Мурманская область.mp3",
+            "Ненецкий автономный округ": "./Audio/НАО.mp3",
+            "Нижегородская область": "./Audio/Нижегородская область.mp3",
+            "Новгородская область": "./Audio/Новгородская область.mp3",
+            "Новосибирская область": "./Audio/Новосибирская область.mp3",
+            "Омская область": "./Audio/Омская область.mp3",
+            "Оренбургская область": "./Audio/Оренбургская область.mp3",
+            "Орловская область": "./Audio/Орловская область.mp3",
+            "Пензенская область": "./Audio/Пензенская область.mp3",
+            "Пермский край": "./Audio/Пермский край.mp3",
+            "Приморский край": "./Audio/Приморский край.mp3",
+            "Псковская область": "./Audio/Псковская область.mp3",
+            "Республика Адыгея": "./Audio/Республика Адыгея.mp3",
+            "Республика Алтай": "./Audio/Республика Алтай.mp3",
+            "Республика Башкортостан": "./Audio/Республика Башкортостан.mp3",
+            "Республика Бурятия": "./Audio/Республика Бурятия.mp3",
+            "Республика Дагестан": "./Audio/Республика Дагестан.mp3",
+            "Республика Ингушетия": "./Audio/Республика Ингушетия.mp3",
+            "Республика Калмыкия": "./Audio/Республика Калмыкия.mp3",
+            "Республика Карелия": "./Audio/Республика Карелия.mp3",
+            "Республика Крым": "./Audio/Республика Крым.mp3",
+            "Республика Марий Эл": "./Audio/Республика Марий Эл.mp3",
+            "Республика Мордовия": "./Audio/Республика Мордовия.mp3",
+            "Республика Саха (Якутия)": "./Audio/Республика Саха (Якутия).mp3",
+            "Республика Северная Осетия — Алания": "./Audio/Республика Северная Осетия — Алания.mp3",
+            "Республика Татарстан": "./Audio/Республика Татарстан.mp3",
+            "Республика Тыва": "./Audio/Республика Тыва.mp3",
+            "Республика Удмуртия": "./Audio/Республика Удмуртия.mp3",
+            "Республика Хакасия": "./Audio/Республика Хакасия.mp3",
+            "Республика Чувашия": "./Audio/Республика Чувашия.mp3",
+            "Ростовская область": "./Audio/Ростовская область.mp3",
+            "Рязанская область": "./Audio/Рязанская область.mp3",
+            "Самарская область": "./Audio/Самарская область.mp3",
+            "Санкт-Петербург": "./Audio/Санкт-Петербург.mp3",
+            "Саратовская область": "./Audio/Саратовская область.mp3",
+            "Сахалинская область": "./Audio/Сахалинская область.mp3",
+            "Свердловская область": "./Audio/Свердловская область.mp3",
+            "Севастополь": "./Audio/Севастополь.mp3",
+            "Смоленская область": "./Audio/Смоленская область.mp3",
+            "Ставропольский край": "./Audio/Ставропольский край.mp3",
+            "Тамбовская область": "./Audio/Тамбовская область.mp3",
+            "Тверская область": "./Audio/Тверская область.mp3",
+            "Томская область": "./Audio/Томская область.mp3",
+            "Тульская область": "./Audio/Тульская область.mp3",
+            "Тюменская область": "./Audio/Тюменская область.mp3",
+            "Ульяновская область": "./Audio/Ульяновская область.mp3",
+            "Хабаровский край": "./Audio/Хабаровский край.mp3",
+            "Херсонская область": "./Audio/Херсонская область.mp3",
+            "Ханты-Мансийский автономный округ": "./Audio/ХМАО.mp3",
+            "Челябинская область": "./Audio/Челябинская область.mp3",
+            "Чеченская Республика": "./Audio/Чеченская Республика.mp3",
+            "Чукотский автономный округ": "./Audio/ЧАО.mp3",
+            "Ямало-Ненецкий автономный округ": "./Audio/ЯНАО.mp3",
+            "Ярославская область": "./Audio/Ярославская область.mp3"
+        };
 
-          regionsGeoJSON.features.map((f) => {
-            document.getElementById("list-all").innerHTML += `<div class="list-item"> 
-            <h4>${f.properties["Наименование субъекта Российской Федерации"]}</h4>
-            <a href='#' onclick="map.flyTo({center: [${f.geometry.coordinates}], zoom: 10})">Найти на карте</a>
-            <audio controls src="./Audio/Нижегородская область.mp3"></audio>
-            </div><hr>`;
+          // Функция для создания HTML элемента для региона (list-item)
+          function createRegionListItem(regionName, audioSrc) {
+            return `<div class="list-item">
+              <h4>${regionName}</h4>
+              <audio controls src="${audioSrc}"></audio>
+          </div><hr>`;
+          }
+
+          // Переменная для хранения текущего аудиоэлемента
+          let currentAudio = null;
+
+          // Функция для остановки текущего аудио
+          function stopCurrentAudio() {
+            if (currentAudio) {
+              currentAudio.pause();
+              currentAudio.currentTime = 0; // Сбросить в начало
+            }
+          }
+
+          map.on('click', ['regionslayer'], (e) => {
+            const clickedRegionName = e.features[0].properties["Наименование субъекта Российской Федерации"];
+            const audioSrc = regionAudioMap[clickedRegionName];
+
+            if (audioSrc) {
+              // Останавливаем предыдущее аудио
+              stopCurrentAudio();
+
+              // Создаем и начинаем воспроизведение нового аудио
+              currentAudio = new Audio(audioSrc);
+              currentAudio.play();
+
+              // Обновляем содержимое list-all
+              const listItemHtml = createRegionListItem(clickedRegionName, audioSrc);
+              document.getElementById("list-all").innerHTML = listItemHtml; // Перезаписываем содержимое
+            } else {
+              console.warn(`Аудио для региона "${clickedRegionName}" не найдено.`);
+              document.getElementById("list-all").innerHTML = "Аудио для данного региона не найдено.";
+              stopCurrentAudio();
+            }
           });
+
+          // (изначальное заполнение list-all)
+          regionsGeoJSON.features.forEach((f) => {
+            const regionName = f.properties["Наименование субъекта Российской Федерации"];
+            const audioSrc = regionAudioMap[regionName];
+
+            if (audioSrc) {
+              const listItemHtml = createRegionListItem(regionName, audioSrc);
+              document.getElementById("list-all").innerHTML += listItemHtml;
+            }
+          });
+
         });
-    })
-});
+    });
+})
 
 
 
