@@ -26,9 +26,24 @@ h2 {
   right: 0px;
   left: 300px;
 }
+#project {
+  display: block;
+  position: absolute;
+  top: 20px;
+  left: 50%;
+  transform: translate(-50%);
+  width: 50%;
+  height: 40px;
+  padding: 10px;
+  border: none;
+  border-radius: 3px;
+  font-size: 12px;
+  text-align: center;
+  color: #fff;
+  background: #ee8a65;
+}
 
-
-#name {
+/* #name {
     font-size: 50px;
     position: absolute;
     top: 10px;
@@ -36,7 +51,7 @@ h2 {
     z-index: 3;
     background-color: bisque;
     padding: 5px;
-}
+} */
 
 /* #region_name {
     font-size: 40px;
@@ -126,8 +141,8 @@ h2 {
 .button {
     position: absolute;
     display: inline-block;
-    top: 750px;
-    left: 1000px;
+    bottom: 150px;
+    right: 10px; 
     background: linear-gradient(to bottom, #1b1c3f, #4a4e91);
    /* Gradient background */
     color: white;
@@ -188,25 +203,40 @@ h2 {
   }
 
   .overlay {
-    position: absolute;
+    position: absolute; /* Или relative, если это необходимо для других целей */
     top: 10px;
     left: 10px;
 }
 
 .overlay button {
-    font: 600 12px/20px 'Helvetica Neue', Arial, Helvetica, sans-serif;
-    background-color: #3386c0;
-    color: #fff;
+    font-size: 20px; /* Использовать font-size вместо font */
+    font-weight: 600;
+    line-height: 20px;
+    font-family: 'Helvetica Neue', Arial, Helvetica, sans-serif;
+    background-color: rgba(255, 255, 255, 0.8); /* Белый полупрозрачный фон */
+    color: #333;        /* Темно-серый цвет текста */
     display: inline-block;
-    top: 0px;
-    left: 1100px;
+    position: fixed;  /* Фиксированное позиционирование */
+    bottom: 100px;      /* Отступ от нижнего края */
+    right: 10px;       /* Отступ от правого края */
+    left: auto;        /* Убираем left, чтобы не мешал */
+    top: auto;        /* Убираем top, чтобы не мешал */
     margin: 0;
-    padding: 14px 28px;
-    border: none;
+    padding: 5px 8px;   /* Отступы внутри элемента */
+    border: none;      /* Убираем рамку */
     cursor: pointer;
-    border-radius: 3px;
+    border-radius: 3px; /* Скругление углов */
+    z-index: 4;          /* Размещаем над другими элементами */
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); /* Тень */
 }
 
 .overlay button:hover {
     background-color: #4ea0da;
+    color: #fff; /* Белый цвет текста при наведении */
+
 }
+
+
+
+
+

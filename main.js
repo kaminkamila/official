@@ -8,6 +8,11 @@ const map = new maplibregl.Map({
   center: [37, 55], // starting position [lng, lat]
   zoom: 5, // starting zoom
 })
+map.on('style.load', () => {
+  map.setProjection({
+      type: 'globe',
+  });
+});
 
 // Москва (конец Транссиба)
 const origin = [37.6173, 55.7558];
@@ -513,9 +518,6 @@ map.on('load', () => {
               document.getElementById("list-all").innerHTML += listItemHtml;
             }
           });
-
-
-
         });
     });
 })
