@@ -454,13 +454,12 @@ map.on('load', () => {
             "Ямало-Ненецкий автономный округ": "./Audio/ЯНАО.mp3",
             "Ярославская область": "./Audio/Ярославская область.mp3"
         };
-
           // Функция для создания HTML элемента для региона (list-item)
           function createRegionListItem(regionName, audioSrc) {
             return `<div class="list-item">
-              <h4>${regionName}</h4>
-              <audio controls src="${audioSrc}"></audio>
-          </div><hr>`;
+            <h4>${regionName}</h4>
+            <audio controls src="${audioSrc}"></audio>
+        </div><hr>`;
           }
 
           // Переменная для хранения текущего аудиоэлемента
@@ -474,6 +473,12 @@ map.on('load', () => {
             }
           }
 
+          // Добавляем обработчик события click для кнопки
+            button.addEventListener('click', () => {
+              stopCurrentAudio(); // Останавливаем текущее аудио
+            });
+
+
           map.on('click', ['regionslayer'], (e) => {
             const clickedRegionName = e.features[0].properties["Наименование субъекта Российской Федерации"];
             const audioSrc = regionAudioMap[clickedRegionName];
@@ -486,9 +491,11 @@ map.on('load', () => {
               currentAudio = new Audio(audioSrc);
               currentAudio.play();
 
-              // Обновляем содержимое list-all
+              // Обновляем содержимое list-all (только если нужно именно заменять)
               const listItemHtml = createRegionListItem(clickedRegionName, audioSrc);
               document.getElementById("list-all").innerHTML = listItemHtml; // Перезаписываем содержимое
+              // Если нужно добавлять элементы, то используйте +=
+              // document.getElementById("list-all").innerHTML += listItemHtml;
             } else {
               console.warn(`Аудио для региона "${clickedRegionName}" не найдено.`);
               document.getElementById("list-all").innerHTML = "Аудио для данного региона не найдено.";
@@ -506,6 +513,8 @@ map.on('load', () => {
               document.getElementById("list-all").innerHTML += listItemHtml;
             }
           });
+
+
 
         });
     });
