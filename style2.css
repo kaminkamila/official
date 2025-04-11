@@ -2,17 +2,16 @@ body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
+    background-color: #cce3f1;
   }
   
-  /* Стиль для стартовой страницы */
   .start-page {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
-    height: 100vh;
-    background-color: #f9f9f9;
-  }
+    margin-top: 150px;
+}
+
   
   .start-page h1 {
     text-align: center;
@@ -23,18 +22,40 @@ body {
     text-align: center;
     max-width: 600px;
     margin-bottom: 40px;
-  }
+    font-size: 18px; /* Пример размера шрифта. Подберите подходящий */
+}
   
   .start-page button {
-    padding: 10px 20px;
-    border-radius: 5px;
-    background-color: #4CAF50;
-    color: white;
-    border: none;
+    padding: 17px 40px;
+    border-radius: 10px;
+    border: 0;
+    background-color: rgb(255, 56, 86);
+    letter-spacing: 1.5px;
+    font-size: 15px;
+    transition: all 0.3s ease;
+    box-shadow: rgb(201, 46, 70) 0px 10px 0px 0px;
+    color: hsl(0, 0%, 100%);
     cursor: pointer;
-    transition: background-color 0.3s ease;
   }
   
   .start-page button:hover {
-    background-color: #45a049;
+    box-shadow: rgb(201, 46, 70) 0px 7px 0px 0px;
   }
+  
+  .start-page button:active {
+    background-color: rgb(255, 56, 86);
+    /*50, 168, 80*/
+    box-shadow: rgb(201, 46, 70) 0px 0px 0px 0px;
+    transform: translateY(5px);
+    transition: 200ms;
+  }
+
+  /* Добавляем стили для изображения */
+  .start-page img {
+    width: 700px;
+    margin-top: 20px;
+    position: fixed;
+    bottom: 20px;
+    left: 50%;             /* Сдвигаем центр изображения в середину экрана */
+    transform: translateX(-50%); /* Сдвигаем изображение влево на половину ширины */
+}
