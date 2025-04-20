@@ -21,16 +21,13 @@ map.on("style.load", () => {
 function mergeData(regionsGeoJSON, csvData) {
   regionsGeoJSON.features.forEach((feature) => {
     const id = String(feature.properties.region_cod);
-    // console.log(`Обрабатываем GeoJSON feature с region_code: ${id}`);
 
     let csvRecord = null;
 
     for (let i = 0; i < csvData.length; i++) {
       const csvRegionCode = csvData[i].region_cod;
-      // console.log(`Сравниваем с CSV region_code: ${csvRegionCode}`);
       if (csvRegionCode === id) {
         csvRecord = csvData[i];
-        // console.log(`Найдено соответствие для region_code: ${id}`);
         break; // после того, как нашли соответствие, выходим из цикла
       }
     }
@@ -67,9 +64,9 @@ map.on("load", () => {
     type: "line",
     source: "countries",
     paint: {
-      "line-color": "#d0d0d0", // Цвет границ
-      "line-width": 1, // Толщина границ
-      "line-opacity": 0.7, // Прозрачность границ
+      "line-color": "#d0d0d0",
+      "line-width": 1,
+      "line-opacity": 0.7,
     },
   });
 
@@ -199,10 +196,9 @@ map.on("load", () => {
                 0,
               ],
               "line-blur": [
-                // Добавляем небольшое размытие
                 "case",
                 ["boolean", ["feature-state", "mew"], false],
-                0.5, //  небольшое размытие чтобы скрыть стыки
+                0.5,
                 0,
               ],
             },
@@ -307,6 +303,101 @@ map.on("load", () => {
             document.getElementById("lat").innerHTML = `Широта: ${lat}`;
           });
 
+          const regionImageMap = {
+            "Алтайский край": "./Image/Алтайский край.jpg",
+            "Амурская область": "./Image/Амурская область.jpg",
+            "Архангельская область": "./Image/Архангельская область.jpg",
+            "Астраханская область": "./Image/Астраханская область.jpg",
+            "Белгородская область": "./Image/Белгородская область.jpg",
+            "Брянская область": "./Image/Брянская область.png",
+            "Владимирская область": "./Image/Владимирская область.jpg",
+            "Волгоградская область": "./Image/Волгоградская область.jpg",
+            "Вологодская область": "./Image/Вологодская область.jpg",
+            "Воронежская область": "./Image/Воронежская область.jpg",
+            "Еврейская автономная область": "./Image/ЕАО.jpg",
+            "Забайкальский край": "./Image/Забайкальский край.jpg",
+            "Ивановская область": "./Image/Ивановская область.jpg",
+            "Иркутская область": "./Image/Иркутская область.jpg",
+            "Кабардино-Балкарская Республика":
+              "./Image/Кабардино-Балкарская Республика.jpg",
+            "Калининградская область": "./Image/Калининградская область.jpg",
+            "Калужская область": "./Image/Калужская область.jpg",
+            "Камчатский край": "./Image/Камчатский край.jpg",
+            "Карачаево-Черкесская Республика":
+              "./Image/Карачаево-Черкесская Республика.jpg",
+            "Кемеровская область": "./Image/Кемеровская область.jpg",
+            "Кировская область": "./Image/Кировская область.jpg",
+            "Костромская область": "./Image/Костромская область.jpg",
+            "Краснодарский край": "./Image/Краснодарский край.jpg",
+            "Красноярский край": "./Image/Красноярский край.jpg",
+            "Курганская область": "./Image/Курганская область.jpg",
+            "Курская область": "./Image/Курская область.jpg",
+            "Ленинградская область": "./Image/Ленинградская область.jpg",
+            "Липецкая область": "./Image/Липецкая область.jpg",
+            "Магаданская область": "./Image/Магаданская область.jpg",
+            "Москва": "./Image/Москва.jpg",
+            "Московская область": "./Image/Московская область.jpg",
+            "Мурманская область": "./Image/Мурманская область.jpg",
+            "Ненецкий автономный округ": "./Image/НАО.jpg",
+            "Нижегородская область": "./Image/Нижегородская область.jpg",
+            "Новгородская область": "./Image/Новгородская область.jpg",
+            "Новосибирская область": "./Image/Новосибирская область.jpg",
+            "Омская область": "./Image/Омская область.jpg",
+            "Оренбургская область": "./Image/Оренбургская область.jpg",
+            "Орловская область": "./Image/Орловская область.jpg",
+            "Пензенская область": "./Image/Пензенская область.jpg",
+            "Пермский край": "./Image/Пермский край.jpg",
+            "Приморский край": "./Image/Приморский край.jpg",
+            "Псковская область": "./Image/Псковская область.jpg",
+            "Республика Адыгея": "./Image/Республика Адыгея.jpg",
+            "Республика Алтай": "./Image/Республика Алтай.jpg",
+            "Республика Башкортостан": "./Image/Республика Башкортостан.jpg",
+            "Республика Бурятия": "./Image/Республика Бурятия.jpg",
+            "Республика Дагестан": "./Image/Республика Дагестан.jpg",
+            "Республика Ингушетия": "./Image/Республика Ингушетия.jpg",
+            "Республика Калмыкия": "./Image/Республика Калмыкия.jpg",
+            "Республика Карелия": "./Image/Республика Карелия.jpg",
+            "Республика Коми": "./Image/Республика Коми.jpg",
+            "Республика Крым": "./Image/Республика Крым.jpg",
+            "Республика Марий Эл": "./Image/Республика Марий Эл.jpg",
+            "Республика Мордовия": "./Image/Республика Мордовия.jpg",
+            "Республика Саха (Якутия)": "./Image/Республика Саха (Якутия).jpg",
+            "Республика Северная Осетия - Алания":
+              "./Image/Республика Северная Осетия - Алания.jpg",
+            "Республика Татарстан": "./Image/Республика Татарстан.jpg",
+            "Республика Тыва": "./Image/Республика Тыва.jpg",
+            "Удмуртская Республика": "./Image/Республика Удмуртия.jpg",
+            "Республика Хакасия": "./Image/Республика Хакасия.jpg",
+            "Республика Чувашия": "./Image/Республика Чувашия.jpg",
+            "Ростовская область": "./Image/Ростовская область.jpg",
+            "Рязанская область": "./Image/Рязанская область.jpg",
+            "Самарская область": "./Image/Самарская область.jpg",
+            "Санкт-Петербург": "./Image/Санкт-Петербург.jpg",
+            "Саратовская область": "./Image/Саратовская область.jpg",
+            "Сахалинская область": "./Image/Сахалинская область.jpg",
+            "Свердловская область": "./Image/Свердловская область.jpg",
+            "Севастополь: ": "./Image/Севастополь.jpg",
+            "Смоленская область": "./Image/Смоленская область.jpg",
+            "Ставропольский край": "./Image/Ставропольский край.jpg",
+            "Тамбовская область": "./Image/Тамбовская область.jpg",
+            "Тверская область": "./Image/Тверская область.jpg",
+            "Томская область": "./Image/Томская область.jpg",
+            "Тульская область": "./Image/Тульская область.jpg",
+            "Тюменская область": "./Image/Тюменская область.jpg",
+            "Ульяновская область": "./Image/Ульяновская область.jpg",
+            "Хабаровский край": "./Image/Хабаровский край.jpg",
+            "Ханты-Мансийский автономный округ": "./Image/ХМАО.jpg",
+            "Челябинская область": "./Image/Челябинская область.jpg",
+            "Чеченская Республика": "./Image/Чеченская Республика.jpg",
+            "Чукотский автономный округ": "./Image/ЧАО.jpg",
+            "Ямало-Ненецкий автономный округ": "./Image/ЯНАО.jpg",
+            "Ярославская область": "./Image/Ярославская область.jpg",
+            "Запорожская область": "./Image/Запорожская область.jpg",
+            "Донецкая Народная Республика": "./Image/ДНР.jpg",
+            "Луганская Народная Республика": "./Image/ЛНР.jpg",
+            "Херсонская область": "./Image/Херсонская область.jpg",
+          };
+
           const regionAudioMap = {
             "Алтайский край": "./Audio/Алтайский край.mp3",
             "Амурская область": "./Audio/Амурская область.mp3",
@@ -375,7 +466,7 @@ map.on("load", () => {
               "./Audio/Республика Северная Осетия — Алания.mp3",
             "Республика Татарстан": "./Audio/Республика Татарстан.mp3",
             "Республика Тыва": "./Audio/Республика Тыва.mp3",
-            "Республика Удмуртия": "./Audio/Республика Удмуртия.mp3",
+            "Удмуртская Республика": "./Audio/Республика Удмуртия.mp3",
             "Республика Хакасия": "./Audio/Республика Хакасия.mp3",
             "Республика Чувашия": "./Audio/Республика Чувашия.mp3",
             "Ростовская область": "./Audio/Ростовская область.mp3",
@@ -408,10 +499,12 @@ map.on("load", () => {
             regionName,
             audioSrc,
             regionSostav,
-            regionMusic
+            regionMusic,
+            imageSrc
           ) {
             return `<div class="list-item">
             <h4>${regionName}</h4>
+            <img src="${imageSrc}" alt="${regionName}">
             <pre>${regionSostav}</pre> 
             <audio controls src="${audioSrc}"></audio>
             <p>${regionMusic}</p> 
@@ -443,6 +536,7 @@ map.on("load", () => {
               e.features[0].properties["Национальный состав"];
             const clickedMusic = e.features[0].properties["Музыка"];
             const audioSrc = regionAudioMap[clickedRegionName];
+            const imageSrc = regionImageMap[clickedRegionName];
 
             if (audioSrc) {
               // Останавливаем предыдущее аудио
@@ -457,7 +551,8 @@ map.on("load", () => {
                 clickedRegionName,
                 audioSrc,
                 clickedRegionSostav,
-                clickedMusic
+                clickedMusic,
+                imageSrc
               );
               document.getElementById("list-all").innerHTML = listItemHtml; // Перезаписываем содержимое
             } else {
@@ -477,7 +572,106 @@ map.on("load", () => {
             document.getElementById("list-all").innerHTML += listItemHtml;
           });
 
-        
+        });
+        // Функция для вычисления простого центроида полигона
+        function getPolygonCentroid(polygon) {
+          let sumX = 0;
+          let sumY = 0;
+          const coordinates = polygon.coordinates[0];
+
+          for (let i = 0; i < coordinates.length; i++) {
+            sumX += coordinates[i][0]; // долгота
+            sumY += coordinates[i][1]; // широта
+          }
+
+          const numVertices = coordinates.length;
+          return {
+            longitude: sumX / numVertices,
+            latitude: sumY / numVertices,
+          };
+        }
+
+        // Обработка MultiPolygon
+        function getMultiPolygonCentroid(multiPolygon) {
+          let totalSumX = 0;
+          let totalSumY = 0;
+          let totalVerticesCount = 0;
+
+          multiPolygon.coordinates.forEach((polygonsGroup) => {
+            polygonsGroup.forEach((coordinates) => {
+              let sumX = 0;
+              let sumY = 0;
+
+              for (let i = 0; i < coordinates.length; i++) {
+                sumX += coordinates[i][0]; // долгота
+                sumY += coordinates[i][1]; // широта
+              }
+
+              const verticesCount = coordinates.length;
+              totalSumX += sumX;
+              totalSumY += sumY;
+              totalVerticesCount += verticesCount;
+            });
+          });
+
+          return {
+            longitude: totalSumX / totalVerticesCount,
+            latitude: totalSumY / totalVerticesCount,
+          };
+        }
+
+        const regionNames = [];
+
+        regionsGeoJSON.features.forEach((f) => {
+          const regionName = f.properties["NL_NAME_1"];
+          regionNames.push(regionName);
+        });
+
+        regionNames.sort((a, b) =>
+          a.localeCompare(b, "ru", { sensitivity: "base" })
+        );
+
+        document.getElementById("list-all").innerHTML = "";
+
+        regionNames.forEach((regionName) => {
+          const feature = regionsGeoJSON.features.find(
+            (f) => f.properties["NL_NAME_1"] === regionName
+          );
+
+        let centroid;
+        switch (feature.geometry.type) {
+          case "Polygon":
+            centroid = getPolygonCentroid(feature.geometry);
+            break;
+          case "MultiPolygon":
+            centroid = getMultiPolygonCentroid(feature.geometry);
+            break;
+        }
+
+            const listItemHtml = `
+            <li data-region-name="${regionName}"
+            data-latitude="${centroid.latitude}"
+            data-longitude="${centroid.longitude}">
+            ${regionName}
+            </li>
+            `;
+            document.getElementById("list-all").innerHTML += listItemHtml;
+          }
+        );
+
+        // Обработчик кликов остается прежним
+        document.getElementById("list-all").addEventListener("click", function (event) {
+          if (event.target && event.target.nodeName === "LI") {
+            const regionName = event.target.dataset.regionName;
+            const latitude = event.target.dataset.latitude;
+            const longitude = event.target.dataset.longitude;
+            
+            map.flyTo({
+              center: [longitude, latitude],
+              zoom: 6,
+              essential: true,
+            });
+          }
         });
       
       // Функция обработки маршрута и настройки анимации
@@ -697,232 +891,3 @@ map.on("load", () => {
   });
 });
 
-// map.on("load", async () => {
-//   let route; // Объявляем route здесь, чтобы он был доступен во всей функции
-//   let origin;   // Объявляем origin
-//   let destination; // Объявляем destination
-
-//   // Функция для загрузки geojson данных
-//   async function loadGeoJSON(url) {
-//     try {
-//       const response = await fetch(url);
-//       if (!response.ok) {
-//         throw new Error(`HTTP error! status: ${response.status}`);
-//       }
-//       const data = await response.json();
-//       return data;
-//     } catch (error) {
-//       console.error("Ошибка загрузки GeoJSON:", error);
-//       return null; // Возвращаем null в случае ошибки
-//     }
-//   }
-
-// // Загружаем данные маршрута
-// route = await loadGeoJSON("./data/railway3.geojson"); // Загружаем и присваиваем
-
-// // Получаем первую и последнюю координаты из route
-// const coordinates = route.features[0].geometry.coordinates;
-// origin = coordinates[0];                     // Первая координата
-// destination = coordinates[coordinates.length - 1]; // Последняя координата
-
-// image = await map.loadImage("./data/train.png");
-// map.addImage("cat", image.data);
-
-// map.addSource("route", {
-//   type: "geojson",
-//   data: route,
-// });
-
-// // Обновляем координаты точки, чтобы начать с начала маршрута
-// const point = {
-//   type: "FeatureCollection",
-//   features: [
-//     {
-//       type: "Feature",
-//       properties: {},
-//       geometry: {
-//         type: "Point",
-//         coordinates: origin, // Start at origin (из GeoJSON)
-//       },
-//     },
-//   ],
-// };
-
-// map.addSource("point", {
-//   type: "geojson",
-//   data: point,
-// });
-
-// map.addLayer({
-//   id: "route",
-//   source: "route",
-//   type: "line",
-//   paint: {
-//     "line-width": 2,
-//     "line-color": "#007cbf",
-//     "line-color": "#777777",
-//   "line-width": 3,
-//   "line-dasharray": [2, 4],
-//   },
-// });
-
-// map.addLayer({
-//   id: "point",
-//   source: "point",
-//   type: "symbol",
-//   layout: {
-//     "icon-image": "cat", // Используем добавленное изображение
-//     "icon-size": 0.1,
-//     // "icon-rotate": ["get", "bearing"], // Поворот в зависимости от bearing
-//     "icon-rotation-alignment": "map",
-//     "icon-overlap": "always",
-//     "icon-ignore-placement": true,
-//   },
-// });
-
-// console.log("Route.features [0] :", route.features[0]);
-
-// // Calculate the distance in kilometers between route start/end point.
-// const lineDistance = turf.lineDistance(route.features[0], "kilometers");
-// console.log("Line distance:", lineDistance);
-
-// const arc = [];
-
-// // Number of steps to use in the arc and animation
-// const steps = 2000;
-
-// // Draw an arc between the `origin` & `destination` of the two points
-
-// for (let i = 0; i < lineDistance; i += lineDistance / steps) {
-//   const segment = turf.along(route.features[0], i, "kilometers");
-//   arc.push(segment.geometry.coordinates);
-// }
-
-// // Update the route with calculated arc coordinates
-// route.features[0].geometry.coordinates = arc;
-
-// // Used to increment the value of the point measurement against the route.
-// let counter = 0;
-
-// function animate() {
-//   // Получаем длину массива координат
-//   const coordinatesLength = route.features[0].geometry.coordinates.length;
-
-//   // Проверяем, что counter находится в пределах массива
-//   if (counter < coordinatesLength) {
-//     // Update point geometry to a new position based on counter denoting
-//     // the index to access the arc.
-//     point.features[0].geometry.coordinates =
-//       route.features[0].geometry.coordinates[counter];
-
-//     // Calculate the bearing to ensure the icon is rotated to match the route arc
-//     let nextCounter = counter + 1;
-//     if (nextCounter >= coordinatesLength) {
-//         nextCounter = counter; // Если достигли конца, остаемся на последней точке
-//     }
-//     point.features[0].properties.bearing = turf.bearing(
-//       turf.point(route.features[0].geometry.coordinates[counter]),
-//       turf.point(route.features[0].geometry.coordinates[nextCounter])
-//     );
-
-//     // Update the source with this new data.
-//     map.getSource("point").setData(point);
-
-//     // Request the next frame of animation so long the end has not been reached.
-//     requestAnimationFrame(animate);
-
-//     counter = counter + 1; // Инкремент counter только если внутри массива
-//   } else {
-//     console.log("Animation complete!");
-//   }
-// }
-
-// document.getElementById("replay").addEventListener("click", () => {
-//    // **Проверка, что origin является массивом перед использованием**
-//   if (!Array.isArray(origin)) {
-//       console.error("Origin не является массивом координат при воспроизведении!");
-//       return; //Прекращаем выполнение, чтобы избежать дальнейших ошибок
-//   }
-//   // Set the coordinates of the original point back to origin
-//   point.features[0].geometry.coordinates = origin;
-
-//   // Update the source layer
-//   map.getSource("point").setData(point);
-
-//   // Reset the counter
-//   counter = 0;
-
-//   // Restart the animation
-//   animate();
-// });
-
-// Запускаем анимацию после загрузки всего
-//   animate();
-
-// });
-// let imageSource; // Глобальная переменная для источника данных изображения
-// let currentRegionId;  // Глобальная переменная для хранения id текущего региона
-
-// map.on("load", async () => {
-//   // 1. Загрузите изображение
-//   const image = await map.loadImage("./Image/Русские.jpg"); // Замените на путь к вашему изображению
-//   map.addImage("my-image", image.data);
-
-//   // 2. Создайте источник для изображения (изначально пустой)
-//   imageSource = {
-//     type: "geojson",
-//     data: {
-//       type: "FeatureCollection",
-//       features: [], // Изначально нет фич
-//     },
-//   };
-
-//   map.addSource("image-point", imageSource);
-
-//   // 3. Создайте слой для отображения изображения
-//   map.addLayer({
-//     id: "image-layer",
-//     type: "symbol",
-//     source: "image-point",
-//     layout: {
-//       "icon-image": "my-image", // Используем загруженное изображение
-//       "icon-size": 0.1,        // Размер иконки (настройте по вкусу)
-//       "icon-allow-overlap": true, // Разрешить перекрытие других элементов
-//     },
-//   });
-
-//   // 4. Обработчик клика на регион
-//   map.on("click", "regionslayer", (e) => {
-//     const clickedFeature = e.features[0];
-//     const regionId = clickedFeature.id; // Предполагаем, что у вас есть свойство 'id' у регионов
-
-//     // Предотвращаем повторное появление картинки на одном и том же регионе
-//     if (regionId === currentRegionId) {
-//         return; // Ничего не делаем, если кликнули на тот же регион
-//     }
-
-//     currentRegionId = regionId;  // Обновляем id текущего региона
-
-//     // Получаем координаты центра региона (centroid)
-//     const centroid = turf.centroid(clickedFeature); // Требуется библиотека Turf.js
-//     const coordinates = centroid.geometry.coordinates;
-
-//     // Обновляем источник данных с точкой
-//     imageSource.data = {
-//       type: "FeatureCollection",
-//       features: [
-//         {
-//           type: "Feature",
-//           geometry: {
-//             type: "Point",
-//             coordinates: coordinates,
-//           },
-//           properties: {},
-//         },
-//       ],
-//     };
-
-//     // Обновляем источник данных, чтобы изменения отобразились
-//     map.getSource("image-point").setData(imageSource.data);
-//   });
-// });

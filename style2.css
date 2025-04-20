@@ -1,60 +1,66 @@
 body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: #ffffff;
-  }
-  
-  .start-page {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-top: 150px;
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #ffffff;
 }
 
-  
-  .start-page h1 {
-    text-align: center;
-    margin-bottom: 20px;
-  }
-  
-  .start-page p {
-    text-align: center;
-    max-width: 600px;
-    margin-bottom: 40px;
-    font-size: 18px;
+.start-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 40px;
 }
-  
-  .start-page button {
-    padding: 17px 40px;
-    border-radius: 10px;
-    border: 0;
-    background-color: rgb(255, 56, 86);
-    letter-spacing: 1.5px;
-    font-size: 15px;
-    transition: all 0.3s ease;
-    box-shadow: rgb(201, 46, 70) 0px 10px 0px 0px;
-    color: hsl(0, 0%, 100%);
-    cursor: pointer;
-  }
-  
-  .start-page button:hover {
-    box-shadow: rgb(201, 46, 70) 0px 7px 0px 0px;
-  }
-  
-  .start-page button:active {
-    background-color: rgb(255, 56, 86);
-    /*50, 168, 80*/
-    box-shadow: rgb(201, 46, 70) 0px 0px 0px 0px;
-    transform: translateY(5px);
-    transition: 200ms;
-  }
 
-  .start-page img {
-    width: 700px;
-    margin-top: 20px;
-    position: fixed;
-    bottom: 20px;
-    left: 50%;
-    transform: translateX(-50%); /* Сдвигаем изображение влево на половину ширины */
+.start-page h1 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.start-page p {
+  text-align: center;
+  max-width: 500px;
+  margin-bottom: 10px;
+  color: #000000;
+  font-style: italic;
+}
+
+.start-page .author-info { 
+  max-width: 800px;
+  margin-bottom: 20px;
+  font-size: 12px;
+}
+
+.start-page button {
+  z-index: 10;
+  padding: 17px 40px;
+  border-radius: 10px;
+  border: 0;
+  background-color: rgb(255, 56, 86);
+  letter-spacing: 1.5px;
+  font-size: 15px;
+  transition: all 0.3s ease;
+  box-shadow: rgb(201, 46, 70) 0px 10px 0px 0px;
+  color: hsl(0, 0%, 100%);
+  cursor: pointer;
+}
+
+.start-page button:hover {
+  box-shadow: rgb(201, 46, 70) 0px 7px 0px 0px;
+}
+
+.start-page button:active {
+  background-color: rgb(255, 56, 86);
+  box-shadow: rgb(201, 46, 70) 0px 0px 0px 0px;
+  transform: translateY(5px);
+  transition: 200ms;
+}
+
+.start-page img {
+  width: 700px;
+  margin-top: 20px;
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%); /* Сдвигаем изображение влево на половину ширины */
 }
