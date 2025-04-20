@@ -3,7 +3,34 @@ body {
 }
 
 h2 {
+  text-align: center;
   margin: 10px;
+}
+
+h4 {
+  text-align: center;
+  font-size: 20px;
+}
+
+p{
+  text-align: center;
+  font-size: 15px;
+}
+
+li{
+  text-align: center;
+  font-size: 15px;
+}
+
+
+pre {
+  text-align: center;
+  padding: 0px;
+  margin: 10;
+  font-size: 15px;
+  /* color: #333; */
+  line-height: 1.4;  
+  font-family: 'Times New Roman', Times, serif;
 }
 
 .list-item {
@@ -15,7 +42,7 @@ h2 {
   top: 0;
   bottom: 0;
   left: 0;
-  width: 300px;
+  width: 350px;
   overflow-y: auto;
 }
 
@@ -24,7 +51,7 @@ h2 {
   top: 0;
   bottom: 0;
   right: 0px;
-  left: 300px;
+  left: 350px;
 }
 #project {
   display: block;
@@ -43,46 +70,41 @@ h2 {
   background: #ee8a65;
 }
 
-/* #name {
-    font-size: 50px;
-    position: absolute;
-    top: 10px;
-    left: 10px;
-    z-index: 3;
-    background-color: bisque;
-    padding: 5px;
-} */
-
-/* #region_name {
-    font-size: 40px;
-    position: absolute;
-    top: 100px;
-    left: 50px;
-    z-index: 4;
-    background-color: rgb(174, 56, 225);
-    padding: 5px;
-} */
-
-
-/* #lng {
-    font-size: 20px;
-    position: absolute;
-    top: 800px;
-    left: 10px;
-    z-index: 4;
-    background-color: rgb(129, 161, 167);
-    padding: 5px;
+#toggle {
+  position: absolute;
+  display: inline-block;
+  bottom: 220px; /* Чуть выше на 70px */
+  right: 10px;
+  background: linear-gradient(to bottom, #1b1c3f, #4a4e91);
+  color: white;
+  font-family: "Segoe UI", sans-serif;
+  font-weight: bold;
+  font-size: 18px;
+  border: none;
+  border-radius: 30px;
+  padding: 14px 28px;
+  cursor: pointer;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  animation: button-shimmer 2s infinite;
+  transition: all 0.3s ease-in-out;
 }
 
-#lat {
-    font-size: 20px;
-    position: absolute;
-    top: 800px;
-    left: 300px;
-    z-index: 4;
-    background-color: rgb(129, 161, 167);
-    padding: 5px;
-} */
+#toggle:hover {
+  background: linear-gradient(to bottom, #2c2f63, #5b67b7);
+  animation: button-particles 1s ease-in-out infinite;
+  transform: translateY(-2px);
+}
+
+#toggle:active {
+  transform: scale(0.95);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+}
+
+/* Добавлено: чтобы стили кнопки toggle не влияли на остальные элементы с классом .button */
+#toggle::before,
+#toggle::after {
+  content: none;
+}
 
 #region_name {
   font-size: 24px;
@@ -203,13 +225,13 @@ h2 {
   }
 
   .overlay {
-    position: absolute; /* Или relative, если это необходимо для других целей */
-    top: 10px;
-    left: 10px;
+    position: absolute;
+    top: 60px;
+    right: 20px;
 }
 
 .overlay button {
-    font-size: 20px; /* Использовать font-size вместо font */
+    font-size: 20px;
     font-weight: 600;
     line-height: 20px;
     font-family: 'Helvetica Neue', Arial, Helvetica, sans-serif;
@@ -217,24 +239,23 @@ h2 {
     color: #333;        /* Темно-серый цвет текста */
     display: inline-block;
     position: fixed;  /* Фиксированное позиционирование */
-    bottom: 100px;      /* Отступ от нижнего края */
-    right: 10px;       /* Отступ от правого края */
-    left: auto;        /* Убираем left, чтобы не мешал */
-    top: auto;        /* Убираем top, чтобы не мешал */
+    top: 70px;
+    right: 20px;
     margin: 0;
     padding: 5px 8px;   /* Отступы внутри элемента */
     border: none;      /* Убираем рамку */
     cursor: pointer;
     border-radius: 3px; /* Скругление углов */
     z-index: 4;          /* Размещаем над другими элементами */
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); /* Тень */
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
 
 .overlay button:hover {
-    background-color: #4ea0da;
+    background-color:  #5b67b7;
     color: #fff; /* Белый цвет текста при наведении */
 
 }
+
 
 
 

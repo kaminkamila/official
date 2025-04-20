@@ -2,7 +2,7 @@ body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #cce3f1;
+    background-color: #ffffff;
   }
   
   .start-page {
@@ -22,7 +22,7 @@ body {
     text-align: center;
     max-width: 600px;
     margin-bottom: 40px;
-    font-size: 18px; /* Пример размера шрифта. Подберите подходящий */
+    font-size: 18px;
 }
   
   .start-page button {
@@ -50,12 +50,11 @@ body {
     transition: 200ms;
   }
 
-  /* Добавляем стили для изображения */
   .start-page img {
     width: 700px;
     margin-top: 20px;
     position: fixed;
     bottom: 20px;
-    left: 50%;             /* Сдвигаем центр изображения в середину экрана */
+    left: 50%;
     transform: translateX(-50%); /* Сдвигаем изображение влево на половину ширины */
 }
