@@ -296,12 +296,13 @@ map.on("load", () => {
           map.on("mousemove", (event) => {
             const lngLat = event.lngLat;
             // console.log(lngLat.lng)
-            const lng = event.lngLat.lng;
-            document.getElementById("lng").innerHTML = `Долгота: ${lng}`;
+            const lng = event.lngLat.lng.toFixed(0);
+            document.getElementById("lng").innerHTML = `Долгота: ${lng} градусов`;
             // console.log(lngLat.lat)
-            const lat = event.lngLat.lat;
-            document.getElementById("lat").innerHTML = `Широта: ${lat}`;
-          });
+            const lat = event.lngLat.lat.toFixed(0);
+            document.getElementById("lat").innerHTML = `Широта: ${lat} градусов`;
+        });
+        
 
           const regionImageMap = {
             "Алтайский край": "./Image/Алтайский край.jpg",
